@@ -22,7 +22,7 @@ def index():
     return render_template("index.html", user_image1 = full_filename[0], user_image2 = full_filename[1], user_image3 = full_filename[2], user_image4 = full_filename[3], user_image5 = full_filename[4], user_image6 = full_filename[5],  user_image = full_filename[6], user_image8 = full_filename[7] )
 # route http posts to this method
 @app.route('/api/test/1', methods=['POST'])
-def test():
+def test1():
     r = request
     # convert string of image data to uint8
     nparr = np.fromstring(r.data, np.uint8)
@@ -40,7 +40,7 @@ def test():
     return Response(response=response_pickled, status=200, mimetype="application/json")
 
 @app.route('/api/test/2', methods=['POST'])
-def test():
+def test2():
     r = request
     # convert string of image data to uint8
     nparr = np.fromstring(r.data, np.uint8)
@@ -58,7 +58,7 @@ def test():
     return Response(response=response_pickled, status=200, mimetype="application/json")
 
 @app.route('/api/test/3', methods=['POST'])
-def test():
+def test3():
     r = request
     # convert string of image data to uint8
     nparr = np.fromstring(r.data, np.uint8)
@@ -76,7 +76,7 @@ def test():
     return Response(response=response_pickled, status=200, mimetype="application/json")
 
 @app.route('/api/test/4', methods=['POST'])
-def test():
+def test4():
     r = request
     # convert string of image data to uint8
     nparr = np.fromstring(r.data, np.uint8)
@@ -94,7 +94,7 @@ def test():
     return Response(response=response_pickled, status=200, mimetype="application/json")
 
 @app.route('/api/test/5', methods=['POST'])
-def test():
+def test5():
     r = request
     # convert string of image data to uint8
     nparr = np.fromstring(r.data, np.uint8)
@@ -112,7 +112,7 @@ def test():
     return Response(response=response_pickled, status=200, mimetype="application/json")
 
 @app.route('/api/test/6', methods=['POST'])
-def test():
+def test6():
     r = request
     # convert string of image data to uint8
     nparr = np.fromstring(r.data, np.uint8)
@@ -130,7 +130,7 @@ def test():
     return Response(response=response_pickled, status=200, mimetype="application/json")    
 
 @app.route('/api/test/7', methods=['POST'])
-def test():
+def test7():
     r = request
     # convert string of image data to uint8
     nparr = np.fromstring(r.data, np.uint8)
@@ -148,7 +148,7 @@ def test():
     return Response(response=response_pickled, status=200, mimetype="application/json")
 
 @app.route('/api/test/8', methods=['POST'])
-def test():
+def test8():
     r = request
     # convert string of image data to uint8
     nparr = np.fromstring(r.data, np.uint8)
