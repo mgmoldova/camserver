@@ -34,4 +34,4 @@ def test():
 
 
 # start flask app
-app.run(debug=True, use_reloader=True)
+app.run()
