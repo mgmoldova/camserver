@@ -33,5 +33,5 @@ def test():
     return Response(response=response_pickled, status=200, mimetype="application/json")
 
 
-# start flask app
-app.run()
+if __name__ == '__main__':
+    app.run(port="6655")
