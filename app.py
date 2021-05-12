@@ -8,7 +8,7 @@ PEOPLE_FOLDER = os.path.join('static', 'images')
 # Initialize the Flask application
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = PEOPLE_FOLDER
-full_filename = []
+full_filename = [1,2,3,4,5,6,7,8]
 @app.route("/")
 def index():
     full_filename[0] = os.path.join(app.config['UPLOAD_FOLDER'], 'test1.png')
