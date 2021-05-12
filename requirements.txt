@@ -1,4 +1,4 @@
 flask==2.0.0
 jsonpickle==2.0.0
 numpy==1.19.3
-opencv-python
+opencv-python-headless==4.2.0.32
