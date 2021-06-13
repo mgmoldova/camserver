@@ -29,19 +29,18 @@ def video():
     """Video streaming home page."""
     return render_template('video.html')
 
-def gen(camera):
-    """Video streaming generator function."""
-    while True:
-        frame = camera.get_frame()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+def gen():
+  streamer = Streamer('localhost', 8080)
+  streamer.start()
+
+  while True:
+    if streamer.streaming:
+      yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + streamer.get_jpeg() + b'\r\n\r\n')
 
 
 @app.route('/video_feed')
 def video_feed():
-    """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen(Camera()),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
+  return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/api/test/1', methods=['POST'])
 def test1():
