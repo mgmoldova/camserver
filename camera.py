@@ -11,4 +11,4 @@ class Camera(object):
         f.close()
 
     def get_frame(self):
-        return self.frames[0]
+        return self.frames
