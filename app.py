@@ -59,7 +59,8 @@ def video_test():
                 }
     # encode response using jsonpickle
     response_pickled = jsonpickle.encode(response)
-    cv2.imwrite("1.jpg", img)
+    cv2.imwrite("2.jpg", img)
+    print("done")
     return Response(response=response_pickled, status=200, mimetype="application/json")
 
 
