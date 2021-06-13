@@ -43,7 +43,7 @@ def video_feed():
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/video_test')
+@app.route('/video_test', methods=['POST'])
 def video_test():
     """Video streaming route. Put this in the src attribute of an img tag."""
     r = request
@@ -60,7 +60,7 @@ def video_test():
     print(response)
     # encode response using jsonpickle
     response_pickled = jsonpickle.encode(response)
-    cv2.imwrite("/2.png", img)
+    cv2.imwrite("1.jpg", img)
     print("done")
     return Response(response=response_pickled, status=200, mimetype="application/json")
 
