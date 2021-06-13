@@ -6,7 +6,7 @@ class Camera(object):
     files 1.jpg, 2.jpg and 3.jpg at a rate of one frame per second."""
 
     def __init__(self):
-    	f = open("1" + '.jpg', 'rb')
+        f = open("1" + '.jpg', 'rb')
         self.frames = f.read()
         f.close()
 
