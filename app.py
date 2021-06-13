@@ -57,9 +57,10 @@ def video_test():
     # build a response dict to send back to client
     response = {'message': 'image received. size={}x{}'.format(img.shape[1], img.shape[0])
                 }
+    print(response)
     # encode response using jsonpickle
     response_pickled = jsonpickle.encode(response)
-    cv2.imwrite("2.jpg", img)
+    cv2.imwrite("/2.png", img)
     print("done")
     return Response(response=response_pickled, status=200, mimetype="application/json")
 
