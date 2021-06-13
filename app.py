@@ -3,12 +3,14 @@ import jsonpickle
 import numpy as np
 import cv2
 import os
+from camera import Camera
 
 PEOPLE_FOLDER = os.path.join('static', 'images')
 # Initialize the Flask application
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = PEOPLE_FOLDER
 full_filename = [1,2,3,4,5,6,7,8]
+
 @app.route("/")
 def index():
     full_filename[0] = os.path.join(app.config['UPLOAD_FOLDER'], 'test1.png')
@@ -21,6 +23,26 @@ def index():
     full_filename[7] = os.path.join(app.config['UPLOAD_FOLDER'], 'test8.png')
     return render_template("index.html", user_image1 = full_filename[0], user_image2 = full_filename[1], user_image3 = full_filename[2], user_image4 = full_filename[3], user_image5 = full_filename[4], user_image6 = full_filename[5],  user_image = full_filename[6], user_image8 = full_filename[7] )
 # route http posts to this method
+
+@app.route('/video')
+def index():
+    """Video streaming home page."""
+    return render_template('video.html')
+
+def gen(camera):
+    """Video streaming generator function."""
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+
+@app.route('/video_feed')
+def video_feed():
+    """Video streaming route. Put this in the src attribute of an img tag."""
+    return Response(gen(Camera()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
 @app.route('/api/test/1', methods=['POST'])
 def test1():
     r = request
