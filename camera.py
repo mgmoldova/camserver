@@ -18,4 +18,4 @@ class Camera(object):
         f = open("1" + '.jpg', 'rb')
         self.frames[0] = f.read()
         f.close()
-        return self.frames[int(time()) % 2]
+        return self.frames[0]
