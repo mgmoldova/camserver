@@ -31,7 +31,7 @@ def video():
 
 def gen():
     port = int(os.environ.get("PORT", 5000))
-    streamer = Streamer('localhost', port)
+    streamer = Streamer('localhost', port+1)
     streamer.start()
 
     while True:
