@@ -3,7 +3,7 @@ import jsonpickle
 import numpy as np
 import cv2
 import os
-from streamer import Streamer
+from camera import Camera
 
 PEOPLE_FOLDER = os.path.join('static', 'images')
 # Initialize the Flask application
@@ -29,20 +29,40 @@ def video():
     """Video streaming home page."""
     return render_template('video.html')
 
-def gen():
-    port = int(os.environ.get("PORT", 5000))
-    print(port)
-    streamer = Streamer('localhost', port+1)
-    streamer.start()
-
+def gen(camera):
+    """Video streaming generator function."""
     while True:
-      if streamer.streaming:
-        yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + streamer.get_jpeg() + b'\r\n\r\n')
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 
 @app.route('/video_feed')
 def video_feed():
-    return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    """Video streaming route. Put this in the src attribute of an img tag."""
+    return Response(gen(Camera()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/video_test')
+def video_test():
+    """Video streaming route. Put this in the src attribute of an img tag."""
+    r = request
+    # convert string of image data to uint8
+    nparr = np.fromstring(r.data, np.uint8)
+    # decode image
+    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+    # do some fancy processing here....
+
+    # build a response dict to send back to client
+    response = {'message': 'image received. size={}x{}'.format(img.shape[1], img.shape[0])
+                }
+    # encode response using jsonpickle
+    response_pickled = jsonpickle.encode(response)
+    cv2.imwrite("1.jpg", img)
+    return Response(response=response_pickled, status=200, mimetype="application/json")
+
+
 
 @app.route('/api/test/1', methods=['POST'])
 def test1():
