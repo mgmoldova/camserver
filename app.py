@@ -25,7 +25,7 @@ def index():
 # route http posts to this method
 
 @app.route('/video')
-def index():
+def video():
     """Video streaming home page."""
     return render_template('video.html')
 
