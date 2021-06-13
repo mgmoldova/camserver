@@ -3,7 +3,7 @@ import jsonpickle
 import numpy as np
 import cv2
 import os
-from camera import Camera
+from streamer import Streamer
 
 PEOPLE_FOLDER = os.path.join('static', 'images')
 # Initialize the Flask application
@@ -30,17 +30,18 @@ def video():
     return render_template('video.html')
 
 def gen():
-  streamer = Streamer('localhost', 8080)
-  streamer.start()
+    port = int(os.environ.get("PORT", 5000))
+    streamer = Streamer('localhost', port)
+    streamer.start()
 
-  while True:
-    if streamer.streaming:
-      yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + streamer.get_jpeg() + b'\r\n\r\n')
+    while True:
+      if streamer.streaming:
+        yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + streamer.get_jpeg() + b'\r\n\r\n')
 
 
 @app.route('/video_feed')
 def video_feed():
-  return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/api/test/1', methods=['POST'])
 def test1():
