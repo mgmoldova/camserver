@@ -9,7 +9,7 @@ PEOPLE_FOLDER = os.path.join('static', 'images')
 # Initialize the Flask application
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = PEOPLE_FOLDER
-full_filename = [1,2,3,4,5,6,7,8]
+full_filename = [0,1,2,3,4,5,6,7,8]
 
 @app.route("/")
 def index():
@@ -22,7 +22,7 @@ def index():
     full_filename[6] = os.path.join(app.config['UPLOAD_FOLDER'], 'test6.png')
     full_filename[7] = os.path.join(app.config['UPLOAD_FOLDER'], 'test7.png')
     full_filename[8] = os.path.join(app.config['UPLOAD_FOLDER'], 'test8.png')
-    return render_template("index.html", user_image1 = full_filename[0], user_image2 = full_filename[1], user_image3 = full_filename[2], user_image4 = full_filename[3], user_image5 = full_filename[4], user_image6 = full_filename[5],  user_image = full_filename[6], user_image8 = full_filename[7] )
+    return render_template("index.html", user_image0 = full_filename[0], user_image1 = full_filename[1], user_image2 = full_filename[2], user_image3 = full_filename[3], user_image4 = full_filename[4], user_image5 = full_filename[5], user_image6 = full_filename[6],  user_image7 = full_filename[7], user_image8 = full_filename[8] )
 # route http posts to this method
 
 @app.route('/video')
